@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-label="Deutsch sprechen">
+  <!-- Open book -->
+  <g fill="#5B2AB2">
+    <path d="M20 168V78c0-4 3-7 7-6l117 20c4 .6 6 4 6 8v96c0 4-4 7-8 6L26 182c-4-.7-6-4-6-8z" opacity=".14"/>
+    <path d="M300 168V78c0-4-3-7-7-6l-117 20c-4 .6-6 4-6 8v96c0 4 4 7 8 6l116-26c4-.7 6-4 6-8z" opacity=".14"/>
+    <path d="M18 76c0-5 4-9 9-8l125 21c5 .8 8 5 8 9v100c0 5-5 9-10 8L26 190c-5-1-8-5-8-9zm10 6v98l122 27V102z" />
+    <path d="M302 76c0-5-4-9-9-8L168 89c-5 .8-8 5-8 9v100c0 5 5 9 10 8l124-26c5-1 8-5 8-9zm-10 6v98l-122 27V102z"/>
+    <rect x="155" y="96" width="10" height="112" rx="3"/>
+    <!-- text lines, left page -->
+    <g opacity=".45">
+      <rect x="44" y="106" width="80" height="7" rx="3.5" transform="rotate(9.5 44 106)"/>
+      <rect x="44" y="130" width="62" height="7" rx="3.5" transform="rotate(9.5 44 130)"/>
+      <rect x="44" y="154" width="74" height="7" rx="3.5" transform="rotate(9.5 44 154)"/>
+    </g>
+    <!-- text lines, right page -->
+    <g opacity=".45">
+      <rect x="196" y="122" width="80" height="7" rx="3.5" transform="rotate(-9.5 196 122)"/>
+      <rect x="196" y="146" width="58" height="7" rx="3.5" transform="rotate(-9.5 196 146)"/>
+      <rect x="196" y="170" width="70" height="7" rx="3.5" transform="rotate(-9.5 196 170)"/>
+    </g>
+  </g>
+
+  <!-- Speech bubbles -->
+  <g>
+    <g fill="#5B2AB2">
+      <rect x="30" y="14" width="118" height="50" rx="12"/>
+      <path d="M52 62l-6 18 24-16z"/>
+    </g>
+    <text x="89" y="45" fill="#fff" font-family="'IBM Plex Sans',system-ui,sans-serif"
+          font-size="24" font-weight="600" text-anchor="middle">Hallo!</text>
+  </g>
+  <g>
+    <g fill="#E4D8FC">
+      <rect x="168" y="34" width="132" height="44" rx="11"/>
+      <path d="M276 76l8 16-24-13z"/>
+    </g>
+    <text x="234" y="63" fill="#3A1A86" font-family="'IBM Plex Sans',system-ui,sans-serif"
+          font-size="20" font-weight="600" text-anchor="middle">Wie geht's?</text>
+  </g>
+</svg>
