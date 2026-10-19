@@ -16,8 +16,8 @@
 
   /* ═══════════════ QARAQALPAQSHA ═══════════════ */
   var kaa = {
-    'meta.title': 'BERLIN — Nemis tili orayı | Nókis',
-    'meta.desc': 'Nókistegi «Berlin» nemis tili orayı. 0 den C1 ge shekem nemis tili, ÖSD hám telc tayarlıq, Germaniyaǵa barıw jolları.',
+    'meta.title': 'Nókistegi nemis tili kursları — BERLIN orayı (Nukus)',
+    'meta.desc': 'Nókistegi BERLIN orayında nemis tilin noldan C1 ge shekem úyreniń. «2+6» mámleketlik baǵdarlaması, ÖSD hám telc tayarlıq, Ausbildung. 23-mikrorayon, 6.',
     'a11y.skip': 'Formaǵa ótiw',
     'a11y.play': 'Qosıw',
     'a11y.pause': 'Toqtatıw',
@@ -255,8 +255,8 @@
 
   /* ═══════════════ OʻZBEKCHA ═══════════════ */
   var uz = {
-    'meta.title': 'BERLIN — Nemis tili markazi | Nukus',
-    'meta.desc': 'Nukusdagi «Berlin» nemis tili markazi. 0 dan C1 gacha nemis tili, ÖSD va telc tayyorgarligi, Germaniyaga borish yo‘llari.',
+    'meta.title': 'Nukusda nemis tili kurslari — BERLIN markazi',
+    'meta.desc': 'Nukusdagi BERLIN markazida nemis tilini noldan C1 gacha o‘rganing. Davlatning «2+6» dasturi, ÖSD va telc tayyorgarligi, Ausbildung. 23-mikrorayon, 6.',
     'a11y.skip': 'Formaga o‘tish',
     'a11y.play': 'Ijro etish',
     'a11y.pause': 'To‘xtatish',
@@ -494,8 +494,8 @@
 
   /* ═══════════════ РУССКИЙ ═══════════════ */
   var ru = {
-    'meta.title': 'BERLIN — центр немецкого языка | Нукус',
-    'meta.desc': 'Центр немецкого языка «Berlin» в Нукусе. Немецкий с 0 до C1, подготовка к ÖSD и telc, пути в Германию.',
+    'meta.title': 'Курсы немецкого языка в Нукусе — центр BERLIN',
+    'meta.desc': 'Курсы немецкого языка в Нукусе с нуля до C1. Госпрограмма «2+6», подготовка к ÖSD и telc, Ausbildung и учёба в Германии. 23-й микрорайон, 6.',
     'a11y.skip': 'Перейти к форме',
     'a11y.play': 'Воспроизвести',
     'a11y.pause': 'Пауза',
@@ -745,17 +745,18 @@
     return key;
   }
 
-  function detect() {
-    var saved;
-    try { saved = localStorage.getItem(STORE_KEY); } catch (e) { /* private mode */ }
-    if (saved && DICT[saved]) return saved;
+  /* Every language has its own pre-rendered URL (/, /uz/, /ru/) so search
+     engines index all three. The page's own language always wins; the choice
+     is only remembered when the visitor clicks the switcher, and is read by
+     the redirect script in the root page's <head>. */
+  var PAGE_LANG = document.documentElement.getAttribute('data-lang') || DEFAULT_LANG;
 
-    var nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
-    nav = nav.toLowerCase();
-    if (nav.indexOf('kaa') === 0) return 'kaa';
-    if (nav.indexOf('uz') === 0) return 'uz';
-    if (nav.indexOf('ru') === 0) return 'ru';
-    return DEFAULT_LANG;
+  function detect() {
+    return DICT[PAGE_LANG] ? PAGE_LANG : DEFAULT_LANG;
+  }
+
+  function remember(lang) {
+    try { localStorage.setItem(STORE_KEY, lang); } catch (e) { /* private mode */ }
   }
 
   function apply(lang) {
@@ -788,10 +789,9 @@
     var cur = document.getElementById('langCur');
     if (cur) cur.textContent = LANGS[lang].short;
     document.querySelectorAll('[data-set-lang]').forEach(function (b) {
-      b.setAttribute('aria-selected', String(b.getAttribute('data-set-lang') === lang));
+      if (b.getAttribute('data-set-lang') === lang) b.setAttribute('aria-current', 'page');
+      else b.removeAttribute('aria-current');
     });
-
-    try { localStorage.setItem(STORE_KEY, lang); } catch (e) { /* ignore */ }
 
     document.dispatchEvent(new CustomEvent('i18n:changed', { detail: { lang: lang } }));
   }
@@ -800,6 +800,8 @@
     t: t,
     apply: apply,
     detect: detect,
+    remember: remember,
+    page: PAGE_LANG,
     get lang() { return current; },
     langs: LANGS,
     DEFAULT: DEFAULT_LANG

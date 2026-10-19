@@ -50,27 +50,49 @@ const check = (label, ok, extra = '') => {
 
 const wait = 'await new Promise(r=>setTimeout(r,400));';
 
-console.log('\n[A] Language switcher (inline segmented)');
+console.log('\n[A] Language pages + switcher');
+const goto = async (url) => { await S('Page.navigate', { url }); await sleep(2000); };
+const clickLang = async (l) => { await ev(`document.querySelector('[data-set-lang="${l}"]').click()`); await sleep(2000); };
 let r = await ev(`
-  document.querySelector('[data-set-lang="ru"]').click(); ${wait}
   return { lang: document.documentElement.lang,
+           current: document.querySelector('[data-set-lang][aria-current="page"]').getAttribute('data-set-lang'),
+           canonical: document.querySelector('link[rel=canonical]').href,
+           hreflang: document.querySelectorAll('link[rel=alternate][hreflang]').length };`);
+check('root page is Karakalpak', r.lang === 'kaa' && r.current === 'kaa', r.lang);
+check('canonical + 4 hreflang links', /berlinnukus\.com\/$/.test(r.canonical) && r.hreflang === 4, r.canonical);
+
+await clickLang('ru');
+r = await ev(`
+  return { path: location.pathname, lang: document.documentElement.lang,
            nav: document.querySelector('.nav a').textContent,
            title: document.title,
-           selected: document.querySelector('[data-set-lang="ru"]').getAttribute('aria-selected'),
-           stored: localStorage.getItem('berlin.lang') };`);
-check('switches to RU', r.lang === 'ru' && r.nav === 'Почему мы', r.nav);
-check('marks active segment', r.selected === 'true');
-check('document title updates', /Нукус/.test(r.title), r.title);
+           selected: document.querySelector('[data-set-lang="ru"]').getAttribute('aria-current'),
+           stored: localStorage.getItem('berlin.lang'),
+           css: getComputedStyle(document.querySelector('.hdr')).position };`);
+check('RU segment opens /ru/', r.path === '/ru/' && r.lang === 'ru' && r.nav === 'Почему мы', r.path + ' ' + r.nav);
+check('marks active segment', r.selected === 'page');
+check('document title is Russian', /Нукус/.test(r.title), r.title);
 check('persists to localStorage', r.stored === 'ru');
+check('sub-page loads the stylesheets', r.css !== 'static', r.css);
 
+await clickLang('uz');
 r = await ev(`
-  document.querySelector('[data-set-lang="uz"]').click(); ${wait}
-  return { lang: document.documentElement.lang, nav: document.querySelector('.nav a').textContent,
+  return { path: location.pathname, lang: document.documentElement.lang, nav: document.querySelector('.nav a').textContent,
            chip: document.getElementById('reelChips').children[0].textContent,
            tgLabel: document.querySelector('.idx__tg').getAttribute('aria-label') };`);
-check('switches to UZ', r.lang === 'uz' && r.nav === 'Nega biz', r.nav);
+check('UZ segment opens /uz/', r.path === '/uz/' && r.lang === 'uz' && r.nav === 'Nega biz', r.path + ' ' + r.nav);
 check('reel chapter chips re-label', r.chip === 'Markaz', r.chip);
 check('row toggle aria-label re-labels', /Noldan boshlovchilar/.test(r.tgLabel || ''), r.tgLabel);
+
+// The root redirect skips headless/bot user agents — pose as a normal browser to test it
+await S('Emulation.setUserAgentOverride', { userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36' });
+await goto('http://127.0.0.1:8899/');
+r = await ev(`return location.pathname;`);
+check('root sends a returning UZ visitor to /uz/', r === '/uz/', r);
+
+await clickLang('kaa');
+r = await ev(`return { path: location.pathname, lang: document.documentElement.lang, stored: localStorage.getItem('berlin.lang') };`);
+check('QQ segment returns to root and stays there', r.path === '/' && r.lang === 'kaa' && r.stored === 'kaa', r.path);
 
 
 console.log('\n[B] Course index');

@@ -4,7 +4,7 @@ import { spawn } from 'node:child_process';
 import { writeFileSync, mkdirSync } from 'node:fs';
 
 const CHROME = 'C:\\Users\\user\\AppData\\Local\\ms-playwright\\chromium-1228\\chrome-win64\\chrome.exe';
-const URL_BASE = 'http://127.0.0.1:8899/index.html';
+const URL_BASE = 'http://127.0.0.1:8899/';
 const OUT = new URL('../.qa/', import.meta.url);
 mkdirSync(OUT, { recursive: true });
 
@@ -89,12 +89,8 @@ for (const shot of SHOTS) {
     width: shot.w, height: shot.h, deviceScaleFactor: shot.dsf, mobile: shot.mobile
   });
 
-  // Force the language before first paint
-  await S('Page.addScriptToEvaluateOnNewDocument', {
-    source: `try{localStorage.setItem('berlin.lang','${shot.lang}')}catch(e){}`
-  });
-
-  await S('Page.navigate', { url: URL_BASE });
+  // Each language is its own pre-rendered page
+  await S('Page.navigate', { url: URL_BASE + (shot.lang === 'kaa' ? '' : shot.lang + '/') });
   await sleep(2600);
 
   if (shot.scroll !== undefined) {

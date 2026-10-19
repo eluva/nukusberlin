@@ -43,8 +43,7 @@ await S('Network.enable'); await S('Network.setCacheDisabled', { cacheDisabled: 
 
 async function shot(name, { w = 1440, h = 900, dsf = 1, mobile = false, lang = 'kaa', sel, wait = 2400, before = '', seekReel = null }) {
   await S('Emulation.setDeviceMetricsOverride', { width: w, height: h, deviceScaleFactor: dsf, mobile });
-  await S('Page.addScriptToEvaluateOnNewDocument', { source: `try{localStorage.setItem('berlin.lang','${lang}')}catch(e){}` });
-  await S('Page.navigate', { url: 'http://127.0.0.1:8899/index.html' });
+  await S('Page.navigate', { url: 'http://127.0.0.1:8899/' + (lang === 'kaa' ? '' : lang + '/') });
   await sleep(wait);
   // addScriptToEvaluateOnNewDocument can lose the race with navigate, which
   // silently yields a screenshot in the wrong language. Force and settle.

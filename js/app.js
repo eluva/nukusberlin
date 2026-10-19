@@ -24,11 +24,16 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
   var T  = function (k) { return window.I18N ? window.I18N.t(k) : k; };
 
-  /* ═══════════════ 1. Language — inline segmented control ═══════════════ */
+  /* ═══════════════ 1. Language — inline segmented control ═══════════════
+     Each segment is a real link to that language's page; clicking only
+     remembers the choice and carries the current #section across. */
   function initLang() {
     $$('[data-set-lang]').forEach(function (b) {
-      b.addEventListener('click', function () {
-        window.I18N.apply(b.getAttribute('data-set-lang'));
+      b.addEventListener('click', function (e) {
+        var lang = b.getAttribute('data-set-lang');
+        window.I18N.remember(lang);
+        e.preventDefault();
+        if (lang !== window.I18N.page) location.href = b.getAttribute('href') + location.hash;
       });
     });
     window.I18N.apply(window.I18N.detect());

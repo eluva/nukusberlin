@@ -83,7 +83,8 @@
 
 /* ── Language: inline segmented text, not a dropdown ──── */
 .lang { display: flex; align-items: center; border: 1px solid var(--rule); border-radius: var(--r); overflow: hidden; }
-.lang button {
+.lang a {
+  display: block;
   padding: .42rem .55rem;
   font-family: var(--f-mono);
   font-size: var(--t-2xs);
@@ -92,9 +93,9 @@
   color: var(--ink-3);
   transition: color var(--d) var(--e-out), background-color var(--d) var(--e-out);
 }
-.lang button + button { border-left: 1px solid var(--rule); }
-.lang button:hover { color: var(--ink); background: var(--paper-2); }
-.lang button[aria-selected="true"] { background: var(--violet); color: #fff; }
+.lang a + a { border-left: 1px solid var(--rule); }
+.lang a:hover { color: var(--ink); background: var(--paper-2); }
+.lang a[aria-current="page"] { background: var(--violet); color: #fff; }
 
 /* ── Burger + mobile nav ──────────────────────────────── */
 .burger {

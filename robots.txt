@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /tools/
+Disallow: /.qa/
+Disallow: /docs/
+
+Sitemap: https://www.berlinnukus.com/sitemap.xml

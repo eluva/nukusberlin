@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- Source of assets/og.png (the 1200×630 link-preview image).
+     Re-render with headless Chrome:
+       chrome --headless=new --window-size=1200,630 --virtual-time-budget=6000
+              --screenshot=assets/og.png tools/og.html -->
+<html lang="kaa">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;700&family=IBM+Plex+Mono:wght@500&display=block" rel="stylesheet">
+<style>
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: #fff; }
+  body { font-family: 'IBM Plex Sans', sans-serif; color: #120B26; position: relative; }
+  .mono { font-family: 'IBM Plex Mono', monospace; letter-spacing: .06em; text-transform: uppercase; }
+  .top { position: absolute; left: 72px; top: 64px; display: flex; align-items: center; gap: 20px; }
+  .top img { width: 72px; height: 72px; border-radius: 4px; }
+  .top b { display: block; font-size: 34px; letter-spacing: .04em; }
+  .top i { display: block; font-style: normal; font-size: 18px; color: #5a5470; }
+  h1 { position: absolute; left: 72px; top: 210px; margin: 0; font-size: 92px; line-height: .98; font-weight: 700; letter-spacing: -.02em; }
+  h1 em { font-style: normal; color: #5B2AB2; }
+  .bot { position: absolute; left: 72px; right: 72px; bottom: 56px; display: flex; white-space: nowrap; gap: 28px; font-size: 20px;
+         border-top: 1px solid #ddd8e6; padding-top: 22px; color: #3a3450; }
+  .bot span + span::before { content: '·'; margin-right: 28px; color: #5B2AB2; }
+  .gate { position: absolute; right: 30px; top: 36px; width: 470px; height: 470px; filter: url(#duotone); }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><filter id="duotone" color-interpolation-filters="sRGB">
+  <feColorMatrix type="matrix" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0"/>
+  <feComponentTransfer>
+    <feFuncR type="table" tableValues="0.118 0.357 0.741"/>
+    <feFuncG type="table" tableValues="0.059 0.165 0.639"/>
+    <feFuncB type="table" tableValues="0.322 0.698 0.949"/>
+  </feComponentTransfer>
+</filter></svg>
+<img class="gate" src="../assets/brandenburg.png" alt="">
+<div class="top">
+  <img src="../assets/avatar.jpg" alt="">
+  <span><b>BERLIN</b><i class="mono">Nemis tili orayı · Nukus</i></span>
+</div>
+<h1>Nemis tili<br><em>A1 → C1</em><br>Nukus</h1>
+<div class="bot mono"><span>ÖSD · telc</span><span>«2+6»</span><span>Ausbildung</span><span>+998 93 712 14 96</span></div>
+</body>
+</html>

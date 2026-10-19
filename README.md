@@ -5,7 +5,9 @@ Trilingual landing page for the German-language centre **@berlin_nukus**
 Open `index.html` or drop the folder on any host.
 
 ```
-index.html          all markup + inline SVG icon sprite
+index.html          all markup + inline SVG icon sprite (kaa; also the template)
+uz/ ru/             generated language pages — node tools/build.mjs
+sitemap.xml         generated, with hreflang; robots.txt likewise
 assets/             avatar.jpg (logo/favicon/OG), brandenburg.png, sprechen.svg
 css/tokens.css      palette, type scale, buttons, section headers
 css/layout.css      header, hero, state-programme band, footer
@@ -220,14 +222,36 @@ happens, so nothing is silently lost. A hidden `company` honeypot drops bots.
 
 Qaraqalpaqsha (`kaa`, default) · Oʻzbekcha (`uz`) · Русский (`ru`).
 
-Karakalpak is default because it is the centre's own Instagram bio language;
-change `DEFAULT_LANG` in `js/i18n.js` to switch. Browser language is detected on
-first visit, then the choice persists in `localStorage` (`berlin.lang`).
+Karakalpak is default because it is the centre's own Instagram bio language.
 
-Edit copy in the three dictionaries in `js/i18n.js` — **not** in `index.html`,
-whose text is only the pre-JS fallback. Markup binds via `data-i18n="key"` and
-`data-i18n-attr="placeholder:key"`. `tools/check.mjs` fails if the dictionaries
-ever drift apart or a key goes missing.
+**Each language is its own page** so search engines index all three:
+`/` (kaa) · `/uz/` · `/ru/`. The switcher segments are real links; clicking one
+remembers the choice in `localStorage` (`berlin.lang`). Only the root page
+redirects: a returning visitor with a saved choice, or a first-time visitor whose
+browser is set to Russian/Uzbek, is sent to that language (crawlers are skipped).
+
+Edit copy in the three dictionaries in `js/i18n.js`, then **rebuild**:
+
+```bash
+node tools/build.mjs   # → index.html, uz/index.html, ru/index.html, sitemap.xml, robots.txt
+```
+
+The build fills every `data-i18n` element from the dictionaries (so crawlers
+see the real text, not a stale fallback) and regenerates the block between
+`<!-- seo:start -->` and `<!-- seo:end -->` in each `<head>`: title, description,
+canonical, hreflang, Open Graph and JSON-LD (`EducationalOrganization` +
+`LocalBusiness`, `WebSite`, `WebPage`, `FAQPage` built from the FAQ keys).
+Never edit `uz/` or `ru/` by hand. Search titles/descriptions are the
+`meta.title` / `meta.desc` keys. The production URL is the `SITE` constant at
+the top of `tools/build.mjs` (`https://www.berlinnukus.com`; the apex domain and
+`nukusberlin.vercel.app` are duplicates that point their canonical here).
+
+`assets/og.png` (1200×630 link preview for Telegram/Instagram/Google) is
+rendered from `tools/og.html`; the command is in that file's header comment.
+`vercel.json` turns on trailing slashes so `/ru` always becomes `/ru/` and the
+relative paths resolve.
+
+`tools/check.mjs` fails if the dictionaries ever drift apart or a key goes missing.
 
 ---
 
