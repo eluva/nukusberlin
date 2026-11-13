@@ -247,6 +247,7 @@
 
     'ftr.nav': 'Bólimler',
     'ftr.contact': 'Baylanıs',
+    'ftr.all': 'Barlıq kontaktlar',
     'ftr.addr': 'Nókis qalası, 23-mikrorayon, 6',
     'ftr.hours': 'Dú–Ju 09:00–20:00 · Sh 09:00–15:00',
     'ftr.tag': 'Noldan C1 ge shekem nemis tili. Nókis, Qaraqalpaqstan.',
@@ -486,6 +487,7 @@
 
     'ftr.nav': 'Bo‘limlar',
     'ftr.contact': 'Aloqa',
+    'ftr.all': 'Barcha kontaktlar',
     'ftr.addr': 'Nukus shahri, 23-mikrorayon, 6',
     'ftr.hours': 'Du–Ju 09:00–20:00 · Sh 09:00–15:00',
     'ftr.tag': 'Noldan C1 gacha nemis tili. Nukus, Qoraqalpog‘iston.',
@@ -725,6 +727,7 @@
 
     'ftr.nav': 'Разделы',
     'ftr.contact': 'Контакты',
+    'ftr.all': 'Все контакты',
     'ftr.addr': 'г. Нукус, 23-й микрорайон, 6',
     'ftr.hours': 'Пн–Пт 09:00–20:00 · Сб 09:00–15:00',
     'ftr.tag': 'Немецкий с нуля до C1. Нукус, Каракалпакстан.',
