@@ -79,7 +79,7 @@ function jsonLd(lang) {
                  addressRegion: a.region, addressCountry: 'UZ' },
       areaServed: { '@type': 'City', name: a.city },
       knowsLanguage: ['de', 'kaa', 'uz', 'ru'],
-      sameAs: ['https://www.instagram.com/berlin_nukus/', 'https://t.me/TabisxanovNurasil']
+      sameAs: ['https://www.instagram.com/berlin_nukus/', 'https://t.me/BerlinNukus']
     },
     {
       '@type': 'WebSite',

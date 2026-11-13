@@ -7,7 +7,7 @@
 
   /* ═══════════════ CONFIG — edit these ═══════════════ */
   var CONFIG = {
-    telegram: 'https://t.me/TabisxanovNurasil',
+    telegram: 'https://t.me/BerlinNukus',
     instagram: 'https://www.instagram.com/berlin_nukus/',
 
     // Displayed in the footer and used for the tel: link.

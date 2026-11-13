@@ -143,7 +143,7 @@ reflows into stacked blocks rather than scrolling sideways.
 | What | Value |
 |---|---|
 | Phone | +998 93 712 14 96 |
-| Telegram | https://t.me/TabisxanovNurasil |
+| Telegram | https://t.me/BerlinNukus |
 | Address | Nukus, 23rd microdistrict, 6 |
 | Price | 400 000 soʻm / month, offline only |
 | **State programme «2+6»** | 8-month course; the student pays 2 months, the state covers 6 |
@@ -189,7 +189,7 @@ Top of `js/app.js`:
 
 ```js
 var CONFIG = {
-  telegram:     'https://t.me/TabisxanovNurasil',
+  telegram:     'https://t.me/BerlinNukus',
   instagram:    'https://www.instagram.com/berlin_nukus/',
   phoneDisplay: '+998 93 712 14 96',
   phoneDial:    '+998937121496',
