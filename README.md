@@ -8,12 +8,13 @@ Open `index.html` or drop the folder on any host.
 index.html          all markup + inline SVG icon sprite (kaa; also the template)
 uz/ ru/             generated language pages — node tools/build.mjs
 sitemap.xml         generated, with hreflang; robots.txt likewise
-assets/             avatar.jpg (logo/favicon/OG), brandenburg.png, sprechen.svg
+assets/             avatar.jpg (logo/favicon/OG), brandenburg.png, sprechen.svg,
+                    lesson.mp4 + lesson-poster.jpg (real classroom clip)
 css/tokens.css      palette, type scale, buttons, section headers
 css/layout.css      header, hero, state-programme band, footer
 css/sections.css    principles list, course index, routes, pricing, FAQ, form
 css/motion.css      scroll reveal + the inverted reel panel and its scenes
-js/i18n.js          three dictionaries (219 keys each) + switcher engine
+js/i18n.js          three dictionaries (222 keys each) + switcher engine
 js/motion.js        scroll reveal, scrollspy, sticky header
 js/reel.js          the 30-second scene player (timeline, scrubbing, chapters)
 js/app.js           CONFIG, nav, course index, slider, apply form
@@ -263,8 +264,26 @@ Zero bandwidth, crisp at any resolution, and it re-translates itself on language
 change. Timings live in `DUR` at the top of `js/reel.js`.
 
 It autoplays once when scrolled into view, pauses when scrolled away or the tab is
-hidden, and never autoplays under `prefers-reduced-motion`. Swapping in a real MP4
-later is a drop-in replacement for `.player__stage`.
+hidden, and never autoplays under `prefers-reduced-motion`.
+
+### The real clip (`.clip`, above the reel)
+
+`assets/lesson.mp4` is a 26-second vertical (9:16) phone video filmed in the
+centre's classrooms. The original was HEVC/H.265, which Firefox and many Windows
+PCs cannot play, so it was re-encoded to H.264 720×1280 (~5.6 MB, `+faststart`);
+`assets/lesson-poster.jpg` is the frame at 21.5 s. To replace the clip, re-encode
+the same way:
+
+```bash
+ffmpeg -i IN.mp4 -vf scale=720:1280,format=yuv420p -c:v libx264 -preset slow -crf 23 \
+  -profile:v high -c:a aac -b:a 96k -movflags +faststart assets/lesson.mp4
+ffmpeg -ss 21.5 -i IN.mp4 -frames:v 1 -vf scale=720:1280 -q:v 4 assets/lesson-poster.jpg
+```
+
+It loads nothing until the visitor presses play (`preload="none"`), pauses when
+scrolled out of view, and it and the animated reel never play at the same time
+(`js/reel.js`). `tools/build.mjs` rewrites `poster=` paths for `/uz/` and `/ru/`
+just like `src=`.
 
 ---
 

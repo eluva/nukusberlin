@@ -27,6 +27,41 @@
 .shead--inv .shead__kick b { color: var(--violet-tint); }
 .shead--inv .mono { color: rgba(239, 235, 250, .55); }
 
+/* ═══════════════ REAL CLIP (vertical phone video) ═══════════════ */
+.clip {
+  max-width: 1000px;
+  margin: 0 auto clamp(2.5rem, 1.8rem + 3vw, 4.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(1.5rem, 1rem + 3vw, 4rem);
+  align-items: center;
+}
+.clip__k { margin-bottom: .85rem; color: rgba(239, 235, 250, .55); }
+.clip__h { font-size: var(--t-2xl); color: #fff; max-width: 18ch; }
+.clip__p {
+  margin: 1rem 0 1.8rem;
+  font-size: var(--t-base);
+  line-height: 1.6;
+  color: rgba(239, 235, 250, .72);
+  max-width: 40ch;
+}
+/* 9:16, capped so the whole video fits on screen under the sticky header */
+.clip__v {
+  display: block;
+  width: min(360px, calc((100svh - 140px) * 9 / 16));
+  height: auto;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  background: var(--night-2);
+  border: 1px solid rgba(255, 255, 255, .16);
+}
+
+@media (max-width: 760px) {
+  .clip { grid-template-columns: 1fr; }
+  .clip__media { justify-self: center; }
+  .clip__v { width: min(100%, 420px, calc((100svh - 120px) * 9 / 16)); }
+}
+
 /* ═══════════════ PLAYER ═══════════════ */
 .player {
   max-width: 1000px;

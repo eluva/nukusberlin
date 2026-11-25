@@ -168,7 +168,7 @@ function render(template, lang) {
     `<a href="${rel(lang, l)}" hreflang="${PAGES[l].hreflang}" lang="${PAGES[l].hreflang}" data-set-lang="${l}"${l === lang ? ' aria-current="page"' : ''}>`);
 
   // Sub-pages live one directory down
-  if (PAGES[lang].dir) html = html.replace(/(\s(?:src|href)=")(?=(?:css|js|assets|docs|contact)\/)/g, '$1../');
+  if (PAGES[lang].dir) html = html.replace(/(\s(?:src|href|poster)=")(?=(?:css|js|assets|docs|contact)\/)/g, '$1../');
 
   const total = (template.match(/\sdata-i18n="/g) || []).length;
   if (filled !== total) throw new Error(`${lang}: filled ${filled} of ${total} [data-i18n] elements — one has nested markup`);

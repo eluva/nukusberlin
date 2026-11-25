@@ -128,6 +128,9 @@
 
     'reel.kick': 'Video',
     'reel.h': '30 sekundta — oray haqqında',
+    'clip.k': 'Sabaqtan kadrlar',
+    'clip.h': 'Sabaqlarımız qalay ótedi',
+    'clip.p': 'Haqıyqıy toparlar hám klaslar — video Nókistegi orayımızda túsirilgen.',
     'reel.s1': 'Nemis tili orayı · Nókis',
     'reel.s2': 'Tolıq jol — bir orayda',
     'reel.s3': 'Hár sabaq — jańa sózler, jańa múmkinshilik',
@@ -372,6 +375,9 @@
 
     'reel.kick': 'Video',
     'reel.h': '30 soniyada — markaz haqida',
+    'clip.k': 'Darsdan lavhalar',
+    'clip.h': 'Darslarimiz qanday o‘tadi',
+    'clip.p': 'Haqiqiy guruhlar va sinflar — video Nukusdagi markazimizda suratga olingan.',
     'reel.s1': 'Nemis tili markazi · Nukus',
     'reel.s2': 'To‘liq yo‘l — bitta markazda',
     'reel.s3': 'Har dars — yangi so‘zlar, yangi imkoniyat',
@@ -616,6 +622,9 @@
 
     'reel.kick': 'Видео',
     'reel.h': 'О центре — за 30 секунд',
+    'clip.k': 'Кадры с урока',
+    'clip.h': 'Как проходят наши уроки',
+    'clip.p': 'Настоящие группы и классы — видео снято в нашем центре в Нукусе.',
     'reel.s1': 'Центр немецкого языка · Нукус',
     'reel.s2': 'Весь путь — в одном центре',
     'reel.s3': 'Каждый урок — новые слова, новая возможность',

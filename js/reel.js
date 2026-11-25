@@ -218,7 +218,7 @@
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting && e.intersectionRatio > 0.55) {
-          if (!autoplayed && !REDUCED) { autoplayed = true; play(); }
+          if (!autoplayed && !REDUCED && !(clip && !clip.paused)) { autoplayed = true; play(); }
         } else if (playing) {
           pause();
         }
@@ -230,6 +230,18 @@
   document.addEventListener('visibilitychange', function () {
     if (document.hidden && playing) pause();
   });
+
+  /* ── The real classroom clip above: one thing plays at a time ── */
+  var clip = document.getElementById('clip');
+  if (clip) {
+    clip.addEventListener('play', function () { if (playing) pause(); });
+    playBtn.addEventListener('click', function () { if (playing && !clip.paused) clip.pause(); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting && !clip.paused) clip.pause();
+      }).observe(clip);
+    }
+  }
 
   document.addEventListener('i18n:changed', relabelChips);
 
